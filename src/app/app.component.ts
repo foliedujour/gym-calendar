@@ -1,13 +1,16 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { CalendarComponent } from './components/calendar/calendar.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  imports: [CalendarComponent, HttpClientModule],
+  template: `<app-calendar></app-calendar>`,
+  providers: [CalendarComponent, HttpClientModule],
+  styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'gym-calendar';
+  viewDate: Date = new Date();
+  events: [];
 }
