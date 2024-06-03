@@ -5,6 +5,7 @@ import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { BrowserModule } from '@angular/platform-browser';
 import { provideHttpClient } from '@angular/common/http';
+import { appRouterProviders } from './app/app.routes';
 
 bootstrapApplication(AppComponent, {
   providers: [
@@ -13,7 +14,8 @@ bootstrapApplication(AppComponent, {
       CalendarModule.forRoot({
         provide: DateAdapter,
         useFactory: adapterFactory,
-      })
+      }),
+      appRouterProviders
     ),
     provideHttpClient(),
   ]
