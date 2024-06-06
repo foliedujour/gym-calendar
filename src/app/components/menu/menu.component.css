@@ -1,0 +1,29 @@
+/* menu.component.css */
+#sidebarMenu {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 100;
+    padding: 48px 0 0; /* Height of navbar */
+    width: 150px; /* Narrower width */
+    background-color: #343a40; /* Dark background for better contrast */
+  }
+  
+  .nav-link {
+    font-size: 1em; /* Adjust font size if necessary */
+    padding: 10px 15px;
+    color: white !important; /* High-contrast text color */
+  }
+  
+  .btn-outline-light {
+    border: 2px solid #ffffff;
+    width: 100%;
+    color: white !important; /* High-contrast text color */
+  }
+  
+  .btn-outline-light:hover {
+    background-color: #ffffff;
+    color: #000;
+  }
+  

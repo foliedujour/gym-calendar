@@ -1,13 +1,33 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Gym Booking</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/calendar">Book now!</a>
-        </li>
-      </ul>
-    </div>
-  </nav>
+<!-- menu.component.html -->
+<nav id="sidebarMenu" class="d-md-block bg-primary sidebar collapse">
+  <div class="position-sticky">
+    <ul class="nav flex-column">
+      <li class="nav-item">
+        <a class="nav-link text-white" routerLink="/clubs">
+          Clubs
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-white" routerLink="/calendar">
+          Program
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-white" routerLink="/instructors">
+          Instructors
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-white" routerLink="/personal">
+          Personal
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-white" routerLink="/nutrition">
+          Nutrition
+        </a>
+      </li>
+    </ul>
+    <button class="btn btn-outline-light mt-3 w-100" routerLink="/login">Log in</button>
+  </div>
+</nav>
