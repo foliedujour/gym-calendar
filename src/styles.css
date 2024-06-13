@@ -1,88 +1,33 @@
-/* styles.css */
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background-color: #f5f5f5;
-  color: white; /* Default font color */
-}
-
-#main-content {
-  position: relative;
-  z-index: 1;
-  color: white; /* Ensure the font color is white */
-}
-
-.homepage {
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-
-.content-overlay {
-  background: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay */
-  padding: 20px;
-  height: 100%;
-  overflow-y: auto;
-}
-
-.carousel-item img {
-  height: 100vh;
-  object-fit: cover;
-}
-
-.navbar .nav-link {
-  color: white !important; /* Ensure navbar links are white */
-}
-
-.btn-outline-light {/* styles.css */
-  body {
+html, body {
+    height: 100%;
     margin: 0;
-    font-family: Arial, sans-serif;
-    background-color: #f5f5f5;
-    color: white; /* Default font color */
   }
   
   #main-content {
-    position: relative;
-    z-index: 1;
-    color: white; /* Ensure the font color is white */
-  }
-  
-  .homepage {
-    height: 100vh;
     display: flex;
     flex-direction: column;
+    min-height: 100vh;
   }
   
-  .carousel-item img {
-    height: 100vh;
-    object-fit: cover;
+  .black-menu {
+    background-color: black;
+    color: white;
+    height: 12vh;
   }
   
-  .content-overlay {
-    background: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay */
+  .black-menu .menu-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%; /* Ensure it takes up the full height of the parent */
+  }
+  
+  .content-section {
     padding: 20px;
-    color: white; /* Ensure text color is white for readability */
-    border-radius: 10px; /* Optional: add rounded corners for better aesthetics */
+    background-color: #fff;
   }
   
-  .navbar .nav-link {
-    color: white !important; /* Ensure navbar links are white */
-  }
+ 
   
-  .btn-outline-light {
-    border: 2px solid #ffffff;
-  }
   
-  .btn-outline-light:hover {
-    background-color: #ffffff;
-    color: #000;
-  }
   
-  border: 2px solid #ffffff;
-}
-
-.btn-outline-light:hover {
-  background-color: #ffffff;
-  color: #000;
-}

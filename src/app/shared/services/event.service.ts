@@ -15,10 +15,35 @@ export class EventService {
 
    constructor(private authService: AuthService) { }
 
-   private apiURL = `${environment.apiURL}/course-sessions`
+   private apiURL = `${environment.apiURL}/api/course-sessions`
 
    getCourseSessionsByWeek(startDate: string): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiURL}/week?date=${startDate}`, { headers: this.authService.getAuthHeaders() });
   }
+
+  checkInstructorAvailability(instructorId: number, startDateTime: string, endDateTime: string): Observable<boolean> {
+    return this.http.get<boolean>(`${this.apiURL}/check-instructor-availability`, {
+      params: {
+        'instructorId': instructorId.toString(),
+        'startDateTime': startDateTime,
+        'endDateTime': endDateTime
+      },
+      headers: this.authService.getAuthHeaders()
+    });
+  }
+
+  checkClassRoomAvailability(roomId: number, startDateTime: string, endDateTime: string): Observable<boolean> {
+    return this.http.get<boolean>(`${this.apiURL}/check-room-availability`, {
+      params: {
+        'roomId': roomId.toString(),
+        'startDateTime': startDateTime,
+        'endDateTime': endDateTime
+      },
+      headers: this.authService.getAuthHeaders()
+    });
+  }
 }
+
+  
+
 

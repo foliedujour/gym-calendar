@@ -1,31 +1,29 @@
-<!-- content.component.html -->
-<div class="container mt-5">
-  <h1>Weekly Course Sessions</h1>
-  <div class="d-flex justify-content-between align-items-center mb-4">
-    <a href="#" class="text-decoration-none">&lt; Previous Week</a>
-    <a href="#" class="text-decoration-none">Next Week &gt;</a>
+<div class="container mt-4">
+  <h1>Angular Calendar</h1>
+  <div class="row mb-3">
+    <div class="col-12 text-center">
+      <button class="btn btn-primary" (click)="setView(CalendarView.Month)">Month View</button>
+      <button class="btn btn-primary" (click)="setView(CalendarView.Week)">Week View</button>
+    
+    </div>
   </div>
-  <table class="table table-hover no-border">
-    <thead>
-      <tr>
-        <th></th> <!-- Empty header cell for the time labels -->
-        <th *ngFor="let day of days">
-          <div class="day-name">{{ day.name }}</div>
-          <div class="date">{{ day.date | date:'dd MMM' }}</div>
-        </th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let timeSlot of timeSlots" class="time-slot-row">
-        <td class="text-nowrap time-label">{{ timeSlot }}</td>
-        <td *ngFor="let day of days" class="session-cell">
-          <div *ngFor="let session of getSessions(day.name, timeSlot)" class="session">
-            <strong>{{ session.course.title }}</strong><br>
-            {{ session.instructor.firstName }}<br>
-            {{ session.startDateTime | date:'shortTime' }} - {{ session.endDateTime | date:'shortTime' }}
-          </div>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="row">
+    <div class="col-12">
+      <mwl-calendar-month-view
+        *ngIf="view === CalendarView.Month"
+        [viewDate]="viewDate"
+        [events]="events"
+      ></mwl-calendar-month-view>
+      <mwl-calendar-week-view
+        *ngIf="view === CalendarView.Week"
+        [viewDate]="viewDate"
+        [events]="events"
+        [dayStartHour]="10"
+        [dayEndHour]="24"
+        [hourSegments]="1"
+        [hourSegmentHeight]="60"
+      ></mwl-calendar-week-view>
+  
+    </div>
+  </div>
 </div>

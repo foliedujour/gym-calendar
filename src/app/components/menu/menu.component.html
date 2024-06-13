@@ -1,33 +1,8 @@
-<!-- menu.component.html -->
-<nav id="sidebarMenu" class="d-md-block bg-primary sidebar collapse">
-  <div class="position-sticky">
-    <ul class="nav flex-column">
-      <li class="nav-item">
-        <a class="nav-link text-white" routerLink="/clubs">
-          Clubs
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link text-white" routerLink="/calendar">
-          Program
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link text-white" routerLink="/instructors">
-          Instructors
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link text-white" routerLink="/personal">
-          Personal
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link text-white" routerLink="/nutrition">
-          Nutrition
-        </a>
-      </li>
-    </ul>
-    <button class="btn btn-outline-light mt-3 w-100" routerLink="/login">Log in</button>
+<div class="black-menu d-flex justify-content-around text-center py-3 w-100">
+    <button class="menu-item btn btn-link" [routerLink]="['/welcome']" fragment="content-section">CLUBS</button>
+    <button class="menu-item btn btn-link" [routerLink]="['/calendar']" fragment="content-section">GROUP CLASSES</button>
+    <button class="menu-item btn btn-link" [routerLink]="['/calendar']" fragment="content-section">ΠΡΟΓΡΑΜΜΑ</button>
+    <button class="menu-item btn btn-link" [routerLink]="['/login']" fragment="content-section">Log in</button>
   </div>
-</nav>
+
+

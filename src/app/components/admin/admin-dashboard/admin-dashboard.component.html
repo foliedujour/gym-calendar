@@ -1,0 +1,19 @@
+<div>
+    <app-welcome></app-welcome>
+</div>
+
+<div class="container mt-4">
+    <div class="row">
+      <div class="col-md-3">
+        <nav class="nav flex-column nav-pills">
+          <a class="nav-link" (click)="navigateToCreateEvent()">Create Course</a>
+          <a class="nav-link" routerLink="manage-courses" routerLinkActive="active">Manage Courses</a>
+          <a class="nav-link" routerLink="manage-users" routerLinkActive="active">Manage Users</a>
+          <a class="nav-link" routerLink="view-bookings" routerLinkActive="active">View Bookings</a>
+        </nav>
+      </div>
+      <div class="col-md-9">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </div>

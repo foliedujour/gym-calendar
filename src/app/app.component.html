@@ -1,13 +1,15 @@
+
 <div id="main-content" class="container-fluid homepage">
-  <div class="row">
-    <div class="col-md-2 p-0">
-        <app-menu></app-menu>
-    </div>
-    <div class="col-md-10 offset-md-2">
-      <div class="content-overlay">
-        <router-outlet></router-outlet>
-      </div>
-    </div>
+  <app-slideshow></app-slideshow> 
+  <div class="black-menu d-flex justify-content-around text-center py-3 w-100">
+    <button class="menu-item btn btn-link" [routerLink]="['/welcome']" >CLUBS</button>
+    <button class="menu-item btn btn-link" [routerLink]="['/calendar']" >GROUP CLASSES</button>
+    <button class="menu-item btn btn-link" [routerLink]="['/calendar']"(click)="scrollToSection()">ΠΡΟΓΡΑΜΜΑ</button>
+    <button class="menu-item btn btn-link" [routerLink]="['/login']" (click)="scrollToSection()">Log in</button>
   </div>
-</div>
-<app-slideshow></app-slideshow>
+  
+  
+  
+  <div id="content-section" class="content-section">
+    <router-outlet></router-outlet>
+  </div>

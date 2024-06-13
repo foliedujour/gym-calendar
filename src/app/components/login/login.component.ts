@@ -26,9 +26,16 @@ export class LoginComponent {
         localStorage.setItem('token', response.token);
         console.log(response);
 
-        this.router.navigate(['welcome']);  // Redirect to calendar page
-       
-    },
+        // Use the role from the response to redirect
+        const userRole = response.role;
+
+        // Redirect based on the user role
+        if (userRole === 'ROLE_ADMIN') {
+          this.router.navigate(['admin/dashboard']);  // Redirect to admin dashboard
+        } else {
+          this.router.navigate(['user-dashboard']);  // Redirect to user dashboard
+        }
+      },
       error: () => {
         this.errorMessage = 'Invalid username or password';
       }

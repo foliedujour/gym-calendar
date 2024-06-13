@@ -26,7 +26,6 @@ export class AuthService {
 
   getWelcomeMessage(): Observable<string> {
     const headers = this.getAuthHeaders();
-    console.log(headers);
     return this.http.get(`${this.apiURL}/welcome`, { headers, responseType: 'text' });
   }
 }
