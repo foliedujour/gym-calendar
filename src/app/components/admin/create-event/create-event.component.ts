@@ -7,6 +7,7 @@ import { Instructor } from 'src/app/shared/interfaces/instructor';
 import { Room } from 'src/app/shared/interfaces/room';
 import { RoomService } from 'src/app/shared/services/room.service';
 import { EventService } from 'src/app/shared/services/event.service'; 
+import { CourseSession } from 'src/app/shared/interfaces/course-session';
 
 @Component({
   selector: 'app-create-event',
@@ -52,7 +53,7 @@ export class CreateCourseSessionComponent implements OnInit {
 
   generateTimes(): void {
     this.times = [];
-    for (let hour = 10; hour <= 21; hour++) { // Ensure the last start time is 21:00
+    for (let hour = 8; hour <= 21; hour++) { // Ensure the last start time is 21:00
       this.times.push(`${hour < 10 ? '0' : ''}${hour}:00`);
       if (hour < 21) {
         this.times.push(`${hour < 10 ? '0' : ''}${hour}:30`);
@@ -114,9 +115,41 @@ export class CreateCourseSessionComponent implements OnInit {
     // Handle repeat change logic here if necessary
   }
 
-  onSubmit() {
-    console.log('Course Session Created:', this.courseSession);
-    // Add your form submission logic here
+  onSubmit(): void {
+    const selectedCourse = this.courses.find(course => course.title === this.courseSession.courseName);
+    if (!selectedCourse) {
+      alert('Invalid course selected');
+      return;
+    }
+
+    const selectedInstructor = this.instructors.find(inst => inst.firstname === this.courseSession.instructor);
+    if (!selectedInstructor) {
+      alert('Invalid instructor selected');
+      return;
+    }
+
+    const selectedRoom = this.rooms.find(room => room.name === this.courseSession.room);
+    if (!selectedRoom) {
+      alert('Invalid room selected');
+      return;
+    }
+
+    const newSession: CourseSession = {
+      courseId: selectedCourse.id,
+      instructorId: selectedInstructor.id,
+      startDateTime: this.combineDateTime(this.courseSession.date, this.courseSession.startTime),
+      endDateTime: this.combineDateTime(this.courseSession.date, this.courseSession.endTime),
+      roomId: selectedRoom.id
+    };
+
+    this.eventService.createCourseSession(newSession).subscribe({
+      next: response => {
+        alert('Course session created successfully!');
+      },
+      error: error => {
+        alert('Error creating course session.');
+      }
+    });
   }
 
   fetchCourses(): void {
@@ -173,7 +206,7 @@ export class CreateCourseSessionComponent implements OnInit {
     const startDateTime = this.combineDateTime(this.courseSession.date, this.courseSession.startTime);
     const endDateTime = this.combineDateTime(this.courseSession.date, this.courseSession.endTime);
 
-    const selectedInstructor = this.instructors.find(inst => inst.firstName === this.courseSession.instructor);
+    const selectedInstructor = this.instructors.find(inst => inst.firstname === this.courseSession.instructor);
     if (selectedInstructor) {
       this.eventService.checkInstructorAvailability(selectedInstructor.id, startDateTime, endDateTime).subscribe({
         next: (isAvailable: boolean) => {

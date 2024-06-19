@@ -10,7 +10,7 @@
     <div class="form-group">
       <label for="instructor">Instructor:</label>
       <select id="instructor" name="instructor" class="form-control" [(ngModel)]="courseSession.instructor" (change)="onInstructorChange($event)" required>
-        <option *ngFor="let instructor of instructors" [value]="instructor.firstName">{{ instructor.firstName }}</option>
+        <option *ngFor="let instructor of instructors" [value]="instructor.firstname">{{ instructor.firstname }}</option>
       </select>
     </div>
     <div class="form-group">

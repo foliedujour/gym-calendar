@@ -1,0 +1,28 @@
+<div class="container mt-4">
+  <h2>Create New Course</h2>
+  <form (ngSubmit)="onSubmit()" #courseForm="ngForm">
+    <div class="form-group">
+      <label for="title">Course Title:</label>
+      <input type="text" id="title" name="title" class="form-control" [(ngModel)]="course.title" required>
+    </div>
+    <div class="form-group">
+      <label for="description">Description:</label>
+      <textarea id="description" name="description" class="form-control" [(ngModel)]="course.description" required></textarea>
+    </div>
+    <div class="form-group">
+      <label>Instructors:</label>
+      <div *ngFor="let selection of instructorSelections; let i = index" class="mb-2 d-flex align-items-center">
+        <select class="form-control mr-2" [(ngModel)]="instructorSelections[i]" name="instructor{{i}}" (change)="onInstructorChange($event, i)">
+          <option value="0" disabled>Select an instructor</option>
+          <option *ngFor="let instructor of allInstructors" [value]="instructor.id">{{ instructor.firstname }} {{ instructor.lastname }}</option>
+        </select>
+        <button *ngIf="instructorSelections.length > 1" type="button" class="btn btn-danger btn-sm ml-2" (click)="removeInstructorSelection(i)">Remove</button>
+      </div>
+      <button *ngIf="instructorSelections.length < 4" type="button" class="btn btn-link p-0" (click)="addInstructorSelection()">Add Another Instructor</button>
+    </div>
+    <div *ngIf="hasDuplicateInstructors()" class="text-danger">
+      You cannot select the same instructor more than once.
+    </div>
+    <button type="submit" class="btn btn-primary mt-3" [disabled]="hasDuplicateInstructors()">Create Course</button>
+  </form>
+</div>

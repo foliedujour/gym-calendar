@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/shared/services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-welcome',
@@ -11,7 +12,7 @@ import { AuthService } from 'src/app/shared/services/auth.service';
 export class WelcomeComponent implements OnInit {
   username: string;
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit() {
     this.authService.getWelcomeMessage().subscribe({
@@ -20,7 +21,7 @@ export class WelcomeComponent implements OnInit {
         
       },
       error: () => {
-        this.username = 'Unauthorized';
+        this.router.navigate(['/login']);
       }
     });
   }

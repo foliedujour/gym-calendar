@@ -22,18 +22,15 @@ export class LoginComponent {
   login() {
     this.authService.login(this.username, this.password).subscribe({
       next: response => {
-        // Store the JWT token
+        // Store the JWT token and role
         localStorage.setItem('token', response.token);
-        console.log(response);
-
-        // Use the role from the response to redirect
-        const userRole = response.role;
+        localStorage.setItem('role', response.role);
 
         // Redirect based on the user role
-        if (userRole === 'ROLE_ADMIN') {
-          this.router.navigate(['admin/dashboard']);  // Redirect to admin dashboard
+        if (response.role === 'ROLE_ADMIN') {
+          this.router.navigate(['admin/dashboard']); // Redirect to admin dashboard
         } else {
-          this.router.navigate(['user-dashboard']);  // Redirect to user dashboard
+          this.router.navigate(['user-dashboard']); // Redirect to user dashboard
         }
       },
       error: () => {

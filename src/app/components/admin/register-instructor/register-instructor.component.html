@@ -1,0 +1,33 @@
+<div class="container mt-4">
+    <h2>Create New Instructor</h2>
+    <form (ngSubmit)="onSubmit(instructorForm)" #instructorForm="ngForm">
+        <div class="form-group">
+            <label for="firstName">First Name:</label>
+            <input type="text" id="firstName" name="firstName" class="form-control" [(ngModel)]="instructor.firstname" required>
+            <div *ngIf="instructorForm.submitted && !instructor.firstname.trim()" class="text-danger">
+                First name is required.
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="lastName">Last Name:</label>
+            <input type="text" id="lastName" name="lastName" class="form-control" [(ngModel)]="instructor.lastname" required>
+            <div *ngIf="instructorForm.submitted && !instructor.lastname.trim()" class="text-danger">
+                Last name is required.
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="ssn">SSN:</label>
+            <input type="text" id="ssn" name="ssn" class="form-control" [(ngModel)]="instructor.ssn" required>
+            <div *ngIf="instructorForm.submitted && !instructor.ssn.trim()" class="text-danger">
+                SSN is required and must be exactly 5 characters.
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary mt-3">Add Instructor</button>
+        <div *ngIf="errorMessage" class="text-danger mt-2">
+            {{ errorMessage }}
+        </div>
+        <div *ngIf="successMessage" class="text-success mt-2">
+            {{ successMessage }}
+        </div>
+    </form>
+</div>

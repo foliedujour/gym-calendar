@@ -17,9 +17,17 @@ export class AdminDashboardComponent {
   constructor(private router: Router) {}
 
   navigateToCreateEvent(): void {
-    setTimeout(() => {
-      this.router.navigate(['/create-event']);
-    }, 2000); // Delay of 2 seconds
+    
+ this.router.navigate(['/admin/events/new']);
+    
+  }
+  
+  navigateToCreateCourse(): void {
+    this.router.navigate(['/admin/courses/new']);
+  }
+
+  navigateToRegisterInstructor(): void {
+    this.router.navigate(['/admin/instructors/new']);
   }
 }
 

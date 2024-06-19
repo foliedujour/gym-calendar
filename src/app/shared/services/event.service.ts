@@ -1,9 +1,9 @@
 import { Injectable, inject } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { CalendarEvent } from 'angular-calendar';
 import { environment } from 'src/environments/environment';
 import { AuthService } from './auth.service';
+import { CourseSession } from '../interfaces/course-session';
 
 
 @Injectable({
@@ -15,14 +15,14 @@ export class EventService {
 
    constructor(private authService: AuthService) { }
 
-   private apiURL = `${environment.apiURL}/api/course-sessions`
+   private apiURL = `${environment.apiURL}`
 
    getCourseSessionsByWeek(startDate: string): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiURL}/week?date=${startDate}`, { headers: this.authService.getAuthHeaders() });
+    return this.http.get<any[]>(`${this.apiURL}/api/course-sessions/week?date=${startDate}`, { headers: this.authService.getAuthHeaders() });
   }
 
   checkInstructorAvailability(instructorId: number, startDateTime: string, endDateTime: string): Observable<boolean> {
-    return this.http.get<boolean>(`${this.apiURL}/check-instructor-availability`, {
+    return this.http.get<boolean>(`${this.apiURL}/api/course-sessions/check-instructor-availability`, {
       params: {
         'instructorId': instructorId.toString(),
         'startDateTime': startDateTime,
@@ -33,7 +33,7 @@ export class EventService {
   }
 
   checkClassRoomAvailability(roomId: number, startDateTime: string, endDateTime: string): Observable<boolean> {
-    return this.http.get<boolean>(`${this.apiURL}/check-room-availability`, {
+    return this.http.get<boolean>(`${this.apiURL}/api/course-sessions/check-room-availability`, {
       params: {
         'roomId': roomId.toString(),
         'startDateTime': startDateTime,
@@ -41,6 +41,11 @@ export class EventService {
       },
       headers: this.authService.getAuthHeaders()
     });
+  }
+
+  createCourseSession(session: CourseSession): Observable<CourseSession> {
+    const headers = this.authService.getAuthHeaders();
+    return this.http.post<CourseSession>(`${this.apiURL}/api/admin/course-sessions`, session, { headers });
   }
 }
 
