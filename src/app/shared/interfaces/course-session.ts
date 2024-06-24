@@ -1,7 +1,8 @@
 export interface CourseSession {
-    courseId: number;
-    instructorId: number;
-    startDateTime: string;
-    endDateTime: string;
-    roomId: number;
+  id: number | null;
+  courseTitle: string;
+  instructorName: string;
+  startDateTime: string;
+  endDateTime: string;
+  roomName: string;
   }

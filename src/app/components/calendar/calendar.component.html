@@ -1,11 +1,10 @@
 <div class="container mt-5">
-  <h1>Weekly Course Sessions</h1>
+  <h1 class="text-center mb-4"><strong>{{ title }}</strong></h1>
   <div class="d-flex justify-content-between align-items-center mb-4">
-    <a href="#" class="text-decoration-none">&lt; Previous Week</a>
-    <a href="#" class="text-decoration-none">Next Week &gt;</a>
+    <a href="#" class="text-decoration-none" (click)="goToPreviousWeek($event)">&lt; Previous Week</a>
+    <a href="#" class="text-decoration-none" (click)="goToCurrentWeek($event)">Current Week</a>
+    <a href="#" class="text-decoration-none" (click)="goToNextWeek($event)">Next Week &gt;</a>
   </div>
-
-
 
   <table class="table table-hover no-border">
     <thead>
@@ -21,9 +20,10 @@
       <tr *ngFor="let timeSlot of timeSlots" class="time-slot-row">
         <td class="text-nowrap time-label">{{ timeSlot }}</td>
         <td *ngFor="let day of days" class="session-cell">
-          <div *ngFor="let session of getSessions(day.name, timeSlot)" class="session">
-            <strong>{{ session.course.title }}</strong><br>
-            {{ session.instructor.firstname }}<br>
+          <div *ngFor="let session of getSessions(day.name, timeSlot)" class="session" 
+          [ngClass]="session.isBooked ? 'session-booked' : 'session-not-booked'"(click)="onSessionClicked(session)">
+            <strong>{{ session.courseTitle }}</strong><br>
+            {{ session.instructorName }}<br>
             {{ session.startDateTime | date:'shortTime' }} - {{ session.endDateTime | date:'shortTime' }}
           </div>
         </td>

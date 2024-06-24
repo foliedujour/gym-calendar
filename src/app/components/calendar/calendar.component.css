@@ -1,12 +1,13 @@
 /* content.component.css */
 h1 {
-  color: #333; /* Darker color for the heading */
+  color: #6a1b9a; /* Purple for the heading */
   text-align: center;
-  margin-bottom: 30px;
+  margin-bottom: 40px;
+  font-size: 2.5rem;
 }
 
 .table-hover tbody tr:hover {
-  background-color: #f1f1f1;
+  background-color: #f0f0f0;
 }
 
 .no-border {
@@ -19,28 +20,45 @@ h1 {
 }
 
 .time-slot-row {
-  height: 200px; /* Increase the height for more spacious rows */
+  height: 150px; /* Adjust the height for more spacious rows */
 }
 
 .session-cell {
-  vertical-align: top; /* Align sessions to the top of the cell */
-  padding: 10px; /* Add padding for better spacing */
-  min-width: 150px; /* Ensure cells have enough width */
+  vertical-align: top;
+  padding: 10px;
+  min-width: 150px;
 }
 
 .session {
-  background-color: #f8f4e6; /* Light beige color similar to the design */
-  padding: 10px; /* Add padding inside session blocks */
+  background-color: #f8f4e6; /* Light beige color */
+  padding: 15px;
   border-radius: 10px;
   margin-bottom: 20px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   border: 1px solid #e0e0e0;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.session-booked {
+  background-color: #ffcc80; /* Light orange */
+  border: 1px solid #ffb74d;
+}
+
+.session-not-booked {
+  background-color: #f8f4e6; /* Light beige */
+  border: 1px solid #e0e0e0;
+}
+
+.session:hover {
+  background-color: #6a1b9a; /* Purple */
+  color: white; /* Ensure the text remains readable */
 }
 
 a.text-decoration-none {
-  color: #555; /* Darker color for the links */
+  color: #6a1b9a; /* Purple for the links */
 }
 
 a.text-decoration-none:hover {
@@ -67,12 +85,13 @@ a.text-decoration-none:hover {
 }
 
 .day-name {
-  font-size: 1.2rem; /* Larger font size for day name */
+  font-size: 1.2rem;
   font-weight: bold;
+  color: #6a1b9a; /* Purple for day name */
 }
 
 .date {
-  font-size: 0.9rem; /* Smaller font size for date */
+  font-size: 0.9rem;
   color: #555;
 }
 
@@ -80,9 +99,9 @@ a.text-decoration-none:hover {
   color: #555;
   text-align: center;
   vertical-align: middle;
-  font-size: 1.1rem; /* Adjust the font size as needed */
+  font-size: 1.1rem;
 }
 
 .calendar-container {
-  padding-left: 20px; /* Ensure the table starts further to the left */
+  padding-left: 20px;
 }

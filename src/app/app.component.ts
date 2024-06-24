@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component } from '@angular/core';
 import { CalendarComponent } from './components/calendar/calendar.component';
 import { HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './components/login/login.component';
@@ -7,6 +7,7 @@ import { SlideshowComponent } from './components/slideshow/slideshow.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { WelcomeComponent } from './components/welcome/welcome.component';
 import { HeaderComponent } from './components/header/header.component';
+import { AuthService } from './shared/services/auth.service';
 
 
 @Component({
@@ -17,8 +18,32 @@ import { HeaderComponent } from './components/header/header.component';
   providers: [],
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements AfterViewInit {
+  isAuthenticated: boolean = false;
+  
+  constructor(private router: Router, private authService: AuthService, private cdr: ChangeDetectorRef) {}
 
+  ngAfterViewInit(): void {
+    this.scrollToSection();
+    this.checkAuthStatus();
+  }
+  
+  checkAuthStatus() {
+    this.authService.isAuthenticated$.subscribe(isAuthenticated => {
+      this.isAuthenticated = isAuthenticated;
+      this.cdr.detectChanges();
+    });
+  }
+
+  handleAuthAction() {
+    if (this.isAuthenticated) {
+      this.authService.logout();
+      this.isAuthenticated = false;
+      this.cdr.detectChanges();
+    } else {
+      this.router.navigate(['/login']);
+    }
+  }
   
   scrollToSection() {
     // Give some time for navigation to complete before scrolling

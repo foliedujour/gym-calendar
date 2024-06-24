@@ -6,11 +6,12 @@ import { InstructorService } from 'src/app/shared/services/instructor.service';
 import { CourseService } from 'src/app/shared/services/course.service';
 import { Course } from 'src/app/shared/interfaces/course';
 import { Instructor } from 'src/app/shared/interfaces/instructor';
+import { GoBackButtonComponent } from '../../go-back-button/go-back-button.component';
 
 @Component({
   selector: 'app-create-course',
   standalone: true,
-  imports: [CommonModule, FormsModule, HttpClientModule],
+  imports: [CommonModule, FormsModule, HttpClientModule, GoBackButtonComponent],
   templateUrl: './create-course.component.html',
   styleUrls: ['./create-course.component.css']
 })

@@ -1,0 +1,25 @@
+.go-back-btn {
+    top: 20px;
+    left: 20px;
+    background-color: blueviolet;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 30px;
+  }
+  
+  .go-back-btn:hover {
+    background-color: darkblue;
+  }
+  
+  .go-back-btn span {
+    font-size: 24px;
+    margin-right: 5px;
+  }
+  

@@ -29,5 +29,9 @@ export class AdminDashboardComponent {
   navigateToRegisterInstructor(): void {
     this.router.navigate(['/admin/instructors/new']);
   }
+
+  navigateToAdminCalendar(): void {
+    this.router.navigate(['/admin/calendar']);
+  }
 }
 

@@ -1,0 +1,35 @@
+<h2 mat-dialog-title>{{ isAdmin ? 'Event Details (Admin)' : 'Event Details' }}</h2>
+<mat-dialog-content>
+  <div class="event-details">
+    <div class="event-detail">
+      <label>Course Name:</label>
+      <span>{{ data.event.courseTitle}}</span>
+    </div>
+    <div class="event-detail">
+      <label>Instructor:</label>
+      <span>{{ data.event.instructorName }}</span>
+    </div>
+    <div class="event-detail">
+      <label>Date:</label>
+      <span>{{ data.event.startDateTime | date: 'fullDate' }}</span>
+    </div>
+    <div class="event-detail">
+      <label>Start Time:</label>
+      <span>{{ formatTime(data.event.startDateTime) }}</span>
+    </div>
+    <div class="event-detail">
+      <label>End Time:</label>
+      <span>{{ formatTime(data.event.endDateTime) }}</span>
+    </div>
+    <div class="event-detail">
+      <label>Room:</label>
+      <span>{{ data.event.roomName }}</span>
+    </div>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button *ngIf="isAdmin" (click)="onDelete()" color="warn">Delete</button>
+  <button mat-button *ngIf="!isAdmin && !isMyCalendar && !isBooked"(click)="onBook()">Book</button>
+  <button mat-button *ngIf="!isAdmin && !isMyCalendar && isBooked" (click)="onUnbook()">Cancel Booking</button>
+  <button mat-button (click)="onCancel()">Cancel</button>
+</mat-dialog-actions>

@@ -3,11 +3,12 @@ import { Instructor } from 'src/app/shared/interfaces/instructor';
 import { InstructorService } from 'src/app/shared/services/instructor.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
+import { GoBackButtonComponent } from '../../go-back-button/go-back-button.component';
 
 @Component({
   selector: 'app-register-instructor',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, GoBackButtonComponent],
   templateUrl: './register-instructor.component.html',
   styleUrl: './register-instructor.component.css'
 })

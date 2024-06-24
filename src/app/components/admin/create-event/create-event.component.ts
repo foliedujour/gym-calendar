@@ -8,11 +8,12 @@ import { Room } from 'src/app/shared/interfaces/room';
 import { RoomService } from 'src/app/shared/services/room.service';
 import { EventService } from 'src/app/shared/services/event.service'; 
 import { CourseSession } from 'src/app/shared/interfaces/course-session';
+import { GoBackButtonComponent } from '../../go-back-button/go-back-button.component';
 
 @Component({
   selector: 'app-create-event',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, GoBackButtonComponent],
   templateUrl: './create-event.component.html',
   styleUrl: './create-event.component.css'
 })
@@ -26,6 +27,7 @@ export class CreateCourseSessionComponent implements OnInit {
   changeDetection: ChangeDetectionStrategy.OnPush;
   instructorAvailable : boolean = true;
   roomAvailable : boolean = true;
+  minDate: string;
 
   courseSession = {
     courseName: '',
@@ -36,8 +38,6 @@ export class CreateCourseSessionComponent implements OnInit {
     room: '',
   };
 
-  
-
   constructor(
     private courseService: CourseService,
     private eventService: EventService,
@@ -46,6 +46,7 @@ export class CreateCourseSessionComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.setMinDate();
     this.generateTimes();
     this.fetchCourses();
     this.fetchRooms();
@@ -76,6 +77,14 @@ export class CreateCourseSessionComponent implements OnInit {
     if (startHour === 21 && startMinute === 0) {
       this.endTimes.push('21:30', '22:00', '22:30', '23:00');
     }
+  }
+
+  setMinDate(): void {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = (today.getMonth() + 1).toString().padStart(2, '0');
+    const day = today.getDate().toString().padStart(2, '0');
+    this.minDate = `${year}-${month}-${day}`;
   }
 
   onStartTimeChange(event: Event): void {
@@ -135,11 +144,12 @@ export class CreateCourseSessionComponent implements OnInit {
     }
 
     const newSession: CourseSession = {
-      courseId: selectedCourse.id,
-      instructorId: selectedInstructor.id,
+      id: null,
+      courseTitle: selectedCourse.title,
+      instructorName: selectedInstructor.firstname,
       startDateTime: this.combineDateTime(this.courseSession.date, this.courseSession.startTime),
-      endDateTime: this.combineDateTime(this.courseSession.date, this.courseSession.endTime),
-      roomId: selectedRoom.id
+      endDateTime : this.combineDateTime(this.courseSession.date, this.courseSession.endTime),
+      roomName: selectedRoom.name 
     };
 
     this.eventService.createCourseSession(newSession).subscribe({
