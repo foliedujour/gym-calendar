@@ -1,3 +1,4 @@
 <div class="user-calendar">
-    <app-calendar [sessions]="sessions" (sessionClicked)="onEventClick($event)"></app-calendar>
+    <app-calendar [sessions]="sessions" (sessionClicked)="onEventClick($event)"
+(weekChanged)="currentMonday = $event; loadEvents()"></app-calendar>
   </div>

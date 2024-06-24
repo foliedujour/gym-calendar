@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, Input } from '@angular/core';
 import { EventService } from 'src/app/shared/services/event.service';
 import { CalendarComponent } from '../../calendar/calendar.component';
 import { EventDialogComponent } from '../../event-dialog/event-dialog.component';
@@ -20,25 +20,37 @@ import { lastValueFrom } from 'rxjs';
 export class UserCalendarComponent implements OnInit {
   sessions: any[] = [];
   bookedSessionIds: number[] = [];
+  @Input() currentMonday!: Date;
 
   constructor(private eventService: EventService, private dialog: MatDialog, private authService: AuthService, private cdr: ChangeDetectorRef) { }
 
   ngOnInit(): void {
+    if (!this.currentMonday) {
+      this.initializeCurrentMonday();
+    }
     this.loadEvents();
-    this.cdr.detectChanges();
     this.getUserID();
+  }
+
+
+  initializeCurrentMonday(): void {
+    const currentDate = new Date();
+    const dayOfWeek = currentDate.getDay();
+    this.currentMonday = new Date(currentDate.setDate(currentDate.getDate() - dayOfWeek + (dayOfWeek === 0 ? -6 : 1))); // Set to Monday
   }
 
   
   loadEvents(): void {
     const userId = this.authService.getUserId();
-    this.eventService.getCourseSessionsByWeek(new Date().toISOString()).subscribe((events) => {
+    const startOfWeekISO = this.currentMonday.toISOString();
+    this.eventService.getCourseSessionsByWeek(startOfWeekISO).subscribe((events) => {
       this.eventService.getUserCourseSessions(userId).subscribe((bookedSessions) => {
         this.bookedSessionIds = bookedSessions.map((session) => session.id);
         this.sessions = events.map((event) => ({
           ...event,
           isBooked: this.bookedSessionIds.includes(event.id),
         }));
+        this.cdr.markForCheck();
       });
     });
   }

@@ -19,6 +19,7 @@ import { GoBackButtonComponent } from '../../go-back-button/go-back-button.compo
 })
 export class CreateCourseSessionComponent implements OnInit {
   courses: Course[] = []; 
+  date: string = '';
   instructors: Instructor[] = []; 
   times: string[] = [];
   endTimes: string[] = [];
@@ -93,30 +94,34 @@ export class CreateCourseSessionComponent implements OnInit {
     if (this.courseSession.endTime && this.endTimes.indexOf(this.courseSession.endTime) === -1) {
       this.courseSession.endTime = '';
     }
+    this.cdr.detectChanges();
     this.checkIfReadyForAvailabilityCheck();
   }
 
   onEndTimeChange(event: Event): void {
     const endTime = (event.target as HTMLInputElement).value;
     this.courseSession.endTime = endTime;
+    this.cdr.detectChanges();
     this.checkIfReadyForAvailabilityCheck();
   }
 
   onDateChange(event: Event): void {
-    const date = (event.target as HTMLInputElement).value;
-    this.courseSession.date = date;
+    this.date = (event.target as HTMLInputElement).value;
+    this.cdr.detectChanges();
     this.checkIfReadyForAvailabilityCheck();
   }
 
   onRoomChange(event: Event): void {
     const room = (event.target as HTMLInputElement).value;
     this.courseSession.room = room;
+    this.cdr.detectChanges();
     this.checkIfReadyForAvailabilityCheck();
   }
 
   onInstructorChange(event: Event): void {
     const instructor = (event.target as HTMLInputElement).value;
     this.courseSession.instructor = instructor;
+    this.cdr.detectChanges();
     this.checkIfReadyForAvailabilityCheck();
   }
 
@@ -145,11 +150,11 @@ export class CreateCourseSessionComponent implements OnInit {
 
     const newSession: CourseSession = {
       id: null,
-      courseTitle: selectedCourse.title,
-      instructorName: selectedInstructor.firstname,
-      startDateTime: this.combineDateTime(this.courseSession.date, this.courseSession.startTime),
-      endDateTime : this.combineDateTime(this.courseSession.date, this.courseSession.endTime),
-      roomName: selectedRoom.name 
+      courseId: selectedCourse.id,
+      instructorId: selectedInstructor.id,
+      startDateTime: this.combineDateTime(this.date, this.courseSession.startTime),
+      endDateTime: this.combineDateTime(this.date, this.courseSession.endTime),
+      roomId: selectedRoom.id
     };
 
     this.eventService.createCourseSession(newSession).subscribe({
@@ -162,11 +167,11 @@ export class CreateCourseSessionComponent implements OnInit {
     });
   }
 
+
   fetchCourses(): void {
     this.courseService.getCourses().subscribe(courses => {
       this.courses = courses;
       console.log('Courses:', this.courses); // Debug log to check courses
-      this.loading = false;
       this.cdr.markForCheck();
     });
   }
@@ -175,7 +180,6 @@ export class CreateCourseSessionComponent implements OnInit {
     this.roomService.getAllRooms().subscribe({
       next: (data: Room[]) => {
         this.rooms = data;
-        this.loading = false;
         this.cdr.detectChanges();
       },
       error: (err) => {
@@ -207,14 +211,14 @@ export class CreateCourseSessionComponent implements OnInit {
   }
 
   checkIfReadyForAvailabilityCheck(): void {
-    if (this.courseSession.instructor && this.courseSession.date && this.courseSession.startTime && this.courseSession.endTime && this.courseSession.room) {
+    if (this.courseSession.instructor && this.courseSession.startTime  && this.courseSession.endTime && this.courseSession.room) {
       this.checkAvailability();
     }
   }
 
   checkAvailability(): void {
-    const startDateTime = this.combineDateTime(this.courseSession.date, this.courseSession.startTime);
-    const endDateTime = this.combineDateTime(this.courseSession.date, this.courseSession.endTime);
+    const startDateTime = this.combineDateTime(this.date, this.courseSession.startTime);
+    const endDateTime = this.combineDateTime(this.date, this.courseSession.endTime);
 
     const selectedInstructor = this.instructors.find(inst => inst.firstname === this.courseSession.instructor);
     if (selectedInstructor) {
