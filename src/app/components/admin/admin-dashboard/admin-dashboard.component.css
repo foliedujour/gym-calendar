@@ -1,0 +1,24 @@
+.nav-link {
+    font-size: 1.25rem; /* Slightly larger font for better readability */
+    padding: 0.75rem 1rem;
+    margin-bottom: 0.5rem;
+    color: #007bff; /* Bootstrap primary color */
+    border-radius: 0.25rem;
+  }
+
+  .nav-link:hover {
+    background-color: #e9ecef; /* Light gray background on hover */
+  }
+
+  .nav-link.active {
+    background-color: #007bff;
+    color: white;
+  }
+
+  .container {
+    max-width: 1200px; /* Limit container width for better readability */
+  }
+
+  .row {
+    margin-top: 2rem;
+  }

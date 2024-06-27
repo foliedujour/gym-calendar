@@ -10,6 +10,7 @@ import { BookingResponse } from 'src/app/shared/interfaces/booking-response';
 import { lastValueFrom } from 'rxjs';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { ConfirmationDialogComponent } from '../../confirmation-dialog/confirmation-dialog.component';
+import { format } from 'date-fns';
 
 @Component({
   selector: 'app-user-calendar',
@@ -45,7 +46,7 @@ export class UserCalendarComponent implements OnInit {
   
   loadEvents(): void {
     const userId = this.authService.getUserId();
-    const startOfWeekISO = this.currentMonday.toISOString();
+    const startOfWeekISO = this.eventService.formatDateToISO(this.currentMonday);
     this.eventService.getCourseSessionsByWeek(startOfWeekISO).subscribe((events) => {
       this.eventService.getUserCourseSessions(userId).subscribe((bookedSessions) => {
         this.bookedSessionIds = bookedSessions.map((session) => session.id);
@@ -143,4 +144,6 @@ export class UserCalendarComponent implements OnInit {
   }
   }
  
+
+
 

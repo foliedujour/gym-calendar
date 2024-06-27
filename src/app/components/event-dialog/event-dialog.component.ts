@@ -31,6 +31,8 @@ export class EventDialogComponent implements OnInit {
     'Pilates': '../../../assets/pilates.jpg',
   }
 
+  defaultImageUrl = '../../../assets/default.jpg';
+
   constructor(
     public dialogRef: MatDialogRef<EventDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -57,8 +59,14 @@ export class EventDialogComponent implements OnInit {
     return `${hours}:${minutes}`;
   }
 
+  isEventInPast(): boolean {
+    const eventDate = new Date(this.data.event.startDateTime); // Adjust this to the correct field name
+    const currentDate = new Date();
+    return eventDate < currentDate;
+  }
+
   getImageUrl(courseTitle: string): string {
-    return this.courseTitleToImageUrl[courseTitle];
+    return this.courseTitleToImageUrl[courseTitle] || this.defaultImageUrl;
   }
 
   onDelete(): void {

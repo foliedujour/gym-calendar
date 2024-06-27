@@ -70,6 +70,17 @@ export class EventService {
   unBookSession(bookingRequest: BookingRequestDto): Observable<BookingResponse> {
     return this.http.delete<BookingResponse>(`${this.apiURL}/api/user/bookings`,  { headers: this.authService.getAuthHeaders(), body: bookingRequest }, );
   }
+
+  formatDateToISO(date) {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are 0-based, so add 1
+    const day = String(date.getDate()).padStart(2, '0');
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    const seconds = String(date.getSeconds()).padStart(2, '0');
+    
+    return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}`;
+  }
 }
 
   

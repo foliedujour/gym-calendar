@@ -38,7 +38,8 @@
 </mat-dialog-content>
 <mat-dialog-actions>
   <button mat-button *ngIf="isAdmin" (click)="onDelete()" color="warn">Delete</button>
-  <button class="book-now-button" *ngIf="!isAdmin && !isMyCalendar && !isBooked" (click)="onBook()">Book Now!</button>
-  <button mat-button *ngIf="!isAdmin && !isMyCalendar && isBooked" (click)="onUnbook()">Cancel Booking</button>
+  <button class="book-now-button" *ngIf="!isAdmin && !isBooked"  [disabled]="isEventInPast()" (click)="onBook()">Book Now!</button>
+  <p *ngIf="!isAdmin && !isBooked && isEventInPast()" class="warning-message">You cannot book a past event.</p>
+  <button mat-button *ngIf="!isAdmin && !isMyCalendar && isBooked" [disabled]="isEventInPast()" (click)="onUnbook()">Cancel Booking</button>
   <button mat-button (click)="onCancel()">Cancel</button>
 </mat-dialog-actions>

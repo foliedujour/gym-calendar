@@ -36,6 +36,7 @@ export class CalendarComponent implements OnInit {
     const dayOfWeek = currentDate.getDay();
     const monday = new Date(currentDate.setDate(currentDate.getDate() - dayOfWeek + (dayOfWeek === 0 ? -6 : 1))); // Monday
     this.currentMonday = monday;
+    console.log('currentMonday:', this.currentMonday)
     this.generateWeekDays(monday);
   }
 
@@ -53,7 +54,9 @@ export class CalendarComponent implements OnInit {
   }
 
   loadSessions(): void {
-    const startOfWeekISO = this.currentMonday.toISOString();
+   
+    const startOfWeekISO = this.eventService.formatDateToISO(this.currentMonday)
+    console.log('startOfWeekISO:', startOfWeekISO)
     this.eventService.getCourseSessionsByWeek(startOfWeekISO).subscribe(sessions => {
       this.sessions = sessions;
     });
@@ -120,4 +123,5 @@ export class CalendarComponent implements OnInit {
     console.log('Session clicked:', session); 
     this.sessionClicked.emit(session);
   }
+
 }

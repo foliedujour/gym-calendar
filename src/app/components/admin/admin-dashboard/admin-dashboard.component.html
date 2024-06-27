@@ -1,19 +1,21 @@
-<div>
-    <app-welcome></app-welcome>
-</div>
-
 <div class="container mt-4">
-    <div class="row">
-      <div class="col-md-3">
-        <nav class="nav flex-column nav-pills">
-          <a class="nav-link" (click)="navigateToCreateEvent()">Create New Course</a>
-          <a class="nav-link" (click)="navigateToCreateCourse()">Create new Course</a>
-          <a class="nav-link" (click)="navigateToRegisterInstructor()">Register New Instructor</a>
-          <a class="nav-link" (click)="navigateToAdminCalendar()">Update / Delete Sessions</a>
-        </nav>
-      </div>
-      <div class="col-md-9">
-        <router-outlet></router-outlet>
-      </div>
+  <div class="row justify-content-center">
+    <div class="col-md-8 text-center">
+      <app-welcome></app-welcome>
     </div>
   </div>
+
+  <div class="row mt-5">
+    <div class="col-md-3">
+      <nav class="nav flex-column nav-pills">
+        <a class="nav-link" (click)="navigateToCreateEvent()">Create New Event</a>
+        <a class="nav-link" (click)="navigateToCreateCourse()">Create New Course</a>
+        <a class="nav-link" (click)="navigateToRegisterInstructor()">Register New Instructor</a>
+        <a class="nav-link" (click)="navigateToAdminCalendar()">Update / Delete Sessions</a>
+      </nav>
+    </div>
+    <div class="col-md-9">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

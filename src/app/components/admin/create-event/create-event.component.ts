@@ -82,9 +82,11 @@ export class CreateCourseSessionComponent implements OnInit {
 
   setMinDate(): void {
     const today = new Date();
-    const year = today.getFullYear();
-    const month = (today.getMonth() + 1).toString().padStart(2, '0');
-    const day = today.getDate().toString().padStart(2, '0');
+    const tomorrow = new Date(today);
+    tomorrow.setDate(today.getDate() + 1); // The admin can create sessions for tomorrow onwards
+    const year = tomorrow.getFullYear();
+    const month = (tomorrow.getMonth() + 1).toString().padStart(2, '0');
+    const day = tomorrow.getDate().toString().padStart(2, '0');
     this.minDate = `${year}-${month}-${day}`;
   }
 
