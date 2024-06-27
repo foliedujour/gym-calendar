@@ -8,11 +8,13 @@ import { AuthService } from 'src/app/shared/services/auth.service';
 import { BookingRequestDto } from 'src/app/shared/interfaces/booking-request';
 import { BookingResponse } from 'src/app/shared/interfaces/booking-response';
 import { lastValueFrom } from 'rxjs';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { ConfirmationDialogComponent } from '../../confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-user-calendar',
   standalone: true,
-  imports: [CalendarComponent, CommonModule, MatDialogModule, EventDialogComponent],
+  imports: [CalendarComponent, CommonModule, MatDialogModule, EventDialogComponent, ConfirmationDialogComponent, MatSnackBarModule],
   templateUrl: './user-calendar.component.html',
   styleUrl: './user-calendar.component.css'
 })
@@ -22,7 +24,8 @@ export class UserCalendarComponent implements OnInit {
   bookedSessionIds: number[] = [];
   @Input() currentMonday!: Date;
 
-  constructor(private eventService: EventService, private dialog: MatDialog, private authService: AuthService, private cdr: ChangeDetectorRef) { }
+  constructor(private eventService: EventService, private dialog: MatDialog, private authService: AuthService, private cdr: ChangeDetectorRef, 
+    private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     if (!this.currentMonday) {
@@ -72,9 +75,12 @@ export class UserCalendarComponent implements OnInit {
       console.log('Dialog closed with result:', result); // For debugging
       if (result && result.action === 'book') {
         this.bookSession(result.event);
+      } else if (result && result.action === 'unbook') {
+        this.confirmUnbookSession(result.event);
       }
     });
   }
+
   getUserID(): void{
     console.log(this.authService.getUserId());
   }
@@ -90,14 +96,50 @@ export class UserCalendarComponent implements OnInit {
       if (response.success) {
         console.log('Booking successful');
         console.log(response);
+        this.snackBar.open('Booking successful', 'Close', { duration: 3000 });
         this.loadEvents();
       } else {
         console.error('Booking failed:', response.message);
+        this.snackBar.open('Booking failed: ' + response.message, 'Close', { duration: 3000 });
         console.log(response);
       }
     } catch (error) {
       console.error('Booking request failed:', error);
+      this.snackBar.open('Booking request failed: ' + error.message, 'Close', { duration: 3000 });
     }
+  }
+
+  async unbookSession(event: any): Promise<void> {
+    const bookingRequest: BookingRequestDto = {
+      userId: this.authService.getUserId(),
+      courseSessionId: event.id
+    };
+
+    try {
+      const response: BookingResponse = await lastValueFrom(this.eventService.unBookSession(bookingRequest));
+      if (response.success) {
+        console.log('Unbooking successful');
+        console.log(response);
+        this.loadEvents();
+      } else {
+        console.error('Unbooking failed:', response.message);
+        console.log(response);
+      }
+    } catch (error) {
+      console.error('Unbooking request failed:', error);
+    }
+  }
+
+  confirmUnbookSession(event: any): void {
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: '300px'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === true) {
+        this.unbookSession(event);
+      }
+    });
   }
   }
  

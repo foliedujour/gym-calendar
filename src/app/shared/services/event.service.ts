@@ -66,6 +66,10 @@ export class EventService {
   bookSession(bookingRequest: BookingRequestDto): Observable<BookingResponse> {
     return this.http.post<BookingResponse>(`${this.apiURL}/api/user/bookings`, bookingRequest, { headers: this.authService.getAuthHeaders() });
   }
+
+  unBookSession(bookingRequest: BookingRequestDto): Observable<BookingResponse> {
+    return this.http.delete<BookingResponse>(`${this.apiURL}/api/user/bookings`,  { headers: this.authService.getAuthHeaders(), body: bookingRequest }, );
+  }
 }
 
   

@@ -24,6 +24,12 @@ export class EventDialogComponent implements OnInit {
   isMyCalendar: boolean;
   event: CourseSession;
   isBooked: boolean = false;
+  imageUrl: string;
+
+  courseTitleToImageUrl: { [key: string]: string } = {
+    'Yoga Class' : '../../../assets/yoga.jpg',
+    'Pilates': '../../../assets/pilates.jpg',
+  }
 
   constructor(
     public dialogRef: MatDialogRef<EventDialogComponent>,
@@ -34,6 +40,7 @@ export class EventDialogComponent implements OnInit {
     this.isAdmin = data.isAdmin;
     this.isMyCalendar = data.isMyCalendar;
     this.event = data.event
+    this.imageUrl = this.getImageUrl(this.data.event.courseTitle);
   }
 
   ngOnInit(): void {
@@ -42,11 +49,16 @@ export class EventDialogComponent implements OnInit {
       this.isBooked = isBooked;
     });
   }
+
   formatTime(dateTime: string): string {
     const date = new Date(dateTime);
     const hours = date.getHours().toString().padStart(2, '0');
     const minutes = date.getMinutes().toString().padStart(2, '0');
     return `${hours}:${minutes}`;
+  }
+
+  getImageUrl(courseTitle: string): string {
+    return this.courseTitleToImageUrl[courseTitle];
   }
 
   onDelete(): void {

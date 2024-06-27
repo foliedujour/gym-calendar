@@ -1,4 +1,4 @@
-/* content.component.css */
+
 h1 {
   color: #6a1b9a; /* Purple for the heading */
   text-align: center;
@@ -30,18 +30,18 @@ h1 {
 }
 
 .session {
-  background-color: #f8f4e6; /* Light beige color */
-  padding: 15px;
-  border-radius: 10px;
+  background-color: #f8f4e6;
+  padding: 15px; /* Increase padding for better spacing */
+  border-radius: 12px; /* More rounded corners */
   margin-bottom: 20px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   border: 1px solid #e0e0e0;
   cursor: pointer;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for hover effects */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add subtle shadow */
 }
-
 .session-booked {
   background-color: #ffcc80; /* Light orange */
   border: 1px solid #ffb74d;
