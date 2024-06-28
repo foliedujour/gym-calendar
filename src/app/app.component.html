@@ -2,9 +2,9 @@
 <div id="main-content" class="container-fluid homepage">
   <app-slideshow></app-slideshow> 
   <div class="black-menu d-flex justify-content-around text-center py-3">    
-    <button class="menu-item btn btn-link" [routerLink]="['/welcome']" >CLUBS</button>
+    <button class="menu-item btn btn-link" (click)="navigateToDashboard()" >Dashboard</button>
     <button class="menu-item btn btn-link" [routerLink]="['/calendar']" >GROUP CLASSES</button>
-    <button class="menu-item btn btn-link" [routerLink]="['/calendar']"(click)="scrollToSection()">ΠΡΟΓΡΑΜΜΑ</button>
+    <button class="menu-item btn btn-link" (click)="navigateToCalendar()">WEEK SCHEDULE</button>
     <button class="menu-item btn btn-link" (click)="handleAuthAction()">
       {{ isAuthenticated ? 'Logout' : 'Log in' }}
     </button>

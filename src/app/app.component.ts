@@ -39,9 +39,11 @@ export class AppComponent implements AfterViewInit {
       this.authService.logout();
       this.isAuthenticated = false;
       this.cdr.detectChanges();
+      this.router.navigate(['/']);
     } else {
       this.router.navigate(['/login']);
     }
+    this.scrollToSection();
   }
   
   scrollToSection() {
@@ -53,6 +55,32 @@ export class AppComponent implements AfterViewInit {
       }
     }, 100); // Adjust timeout as needed
   }
+
+  navigateToDashboard() {
+    if (this.isAuthenticated) {
+      if (this.authService.isAdmin()) {
+        this.router.navigate(['/admin/dashboard']);
+      } else {
+        this.router.navigate(['/user/dashboard']);
+      }
+    } else {
+      this.router.navigate(['/login'], { queryParams: { message: 'Please login to access the dashboard' } });
+      
+    }
+    this.scrollToSection();
+  }
   
+  navigateToCalendar() {
+    if (this.isAuthenticated) {
+     if (this.authService.isAdmin()) {
+        this.router.navigate(['/admin/calendar']);
+      } else {
+        this.router.navigate(['/user/calendar']);
+      }
+    } else {
+      this.router.navigate(['/calendar']);
+    }
+    this.scrollToSection();
+  }
  
 }
