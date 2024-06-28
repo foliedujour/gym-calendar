@@ -26,12 +26,13 @@ export class EventDialogComponent implements OnInit {
   isBooked: boolean = false;
   imageUrl: string;
 
-  courseTitleToImageUrl: { [key: string]: string } = {
+  courseTitleToImageUrl: { [key: string]: string } = { // array of image links to decorate eache course
     'Yoga Class' : '../../../assets/yoga.jpg',
     'Pilates': '../../../assets/pilates.jpg',
+    'Strength Training': '../../../assets/strength-training.jpg',
   }
 
-  defaultImageUrl = '../../../assets/default.jpg';
+  defaultImageUrl = '../../../assets/default.jpg'; // default image link if course has not its own image
 
   constructor(
     public dialogRef: MatDialogRef<EventDialogComponent>,
@@ -40,7 +41,6 @@ export class EventDialogComponent implements OnInit {
     private authService: AuthService
   ) {
     this.isAdmin = data.isAdmin;
-    this.isMyCalendar = data.isMyCalendar;
     this.event = data.event
     this.imageUrl = this.getImageUrl(this.data.event.courseTitle);
   }
@@ -48,19 +48,19 @@ export class EventDialogComponent implements OnInit {
   ngOnInit(): void {
     const userId = this.authService.getUserId();
     this.eventService.isBooked(userId, this.event.id).subscribe((isBooked: boolean) => {
-      this.isBooked = isBooked;
+      this.isBooked = isBooked; // Checks if user has booked the emitted event
     });
   }
 
-  formatTime(dateTime: string): string {
+  formatTime(dateTime: string): string { // Format time to HH:MM for more user-friendly display
     const date = new Date(dateTime);
     const hours = date.getHours().toString().padStart(2, '0');
     const minutes = date.getMinutes().toString().padStart(2, '0');
     return `${hours}:${minutes}`;
   }
 
-  isEventInPast(): boolean {
-    const eventDate = new Date(this.data.event.startDateTime); // Adjust this to the correct field name
+  isEventInPast(): boolean { // Checks if event is in the past in order to disable book option
+    const eventDate = new Date(this.data.event.startDateTime); 
     const currentDate = new Date();
     return eventDate < currentDate;
   }

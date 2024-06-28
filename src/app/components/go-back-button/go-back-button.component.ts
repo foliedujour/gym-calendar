@@ -10,7 +10,7 @@ import { Location } from '@angular/common';
 </button>`,
   styleUrl: './go-back-button.component.css'
 })
-export class GoBackButtonComponent {
+export class GoBackButtonComponent { // a simple go back button template is above
   constructor(private location: Location) {}
 
   goBack(): void {

@@ -6,14 +6,13 @@ import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { SlideshowComponent } from './components/slideshow/slideshow.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { WelcomeComponent } from './components/welcome/welcome.component';
-import { HeaderComponent } from './components/header/header.component';
 import { AuthService } from './shared/services/auth.service';
 
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CalendarComponent, HttpClientModule, LoginComponent, RouterLink, RouterOutlet, SlideshowComponent, MenuComponent, WelcomeComponent, HeaderComponent ],
+  imports: [CalendarComponent, HttpClientModule, LoginComponent, RouterLink, RouterOutlet, SlideshowComponent, MenuComponent, WelcomeComponent ],
   templateUrl: './app.component.html',
   providers: [],
   styleUrls: ['./app.component.css']
@@ -29,14 +28,14 @@ export class AppComponent implements AfterViewInit {
   }
   
   checkAuthStatus() {
-    this.authService.isAuthenticated$.subscribe(isAuthenticated => {
+    this.authService.isAuthenticated$.subscribe(isAuthenticated => { // Subscribe to the isAuthenticated$ observable to get the latest authentication status
       this.isAuthenticated = isAuthenticated;
       this.cdr.detectChanges();
     });
   }
 
   handleAuthAction() {
-    if (this.isAuthenticated) {
+    if (this.isAuthenticated) { // If the user is authenticated, the option is to log out
       this.authService.logout();
       this.isAuthenticated = false;
       this.cdr.detectChanges();
@@ -46,7 +45,7 @@ export class AppComponent implements AfterViewInit {
   }
   
   scrollToSection() {
-    // Give some time for navigation to complete before scrolling
+    // Scroll to the content section after the page is loaded
     setTimeout(() => {
       const element = document.getElementById('content-section');
       if (element) {

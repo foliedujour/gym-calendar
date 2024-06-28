@@ -11,9 +11,9 @@ import { Router } from '@angular/router';
 })
 export class AuthService {
   private isAuthenticatedSubject = new BehaviorSubject<boolean>(this.hasToken());
-  public isAuthenticated$ = this.isAuthenticatedSubject.asObservable();
+  public isAuthenticated$ = this.isAuthenticatedSubject.asObservable(); // Create an observable to check if the user is authenticated
   private apiURL = `${environment.apiURL}`;
-  private jwtHelper = new JwtHelperService();
+  private jwtHelper = new JwtHelperService(); // Helper service to decode the JWT token in the front-end, too
   constructor(private http: HttpClient, private router: Router) { }
 
   private hasToken(): boolean {
@@ -26,13 +26,12 @@ export class AuthService {
       tap(response => {
         localStorage.setItem('token', response.token);
         localStorage.setItem('role', response.role);
-        this.isAuthenticatedSubject.next(true);
+        this.isAuthenticatedSubject.next(true); // Update Authentication status based on If user has the token
       })
     );
   }
 
-
-  getAuthHeaders(): HttpHeaders {
+  getAuthHeaders(): HttpHeaders { // Use headers to send the JWT token to the server
     const token = localStorage.getItem('token');
     console.log(token);
     return new HttpHeaders({

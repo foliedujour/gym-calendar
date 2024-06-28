@@ -1,7 +1,7 @@
 .black-menu .menu-item {
-    font-size: 1.3rem; /* Adjust the font size as needed */
-    padding: 1rem 2rem; /* Adjust the padding as needed */
-    text-transform: uppercase; /* Optional: Make text uppercase for better visibility */
+    font-size: 1.3rem; 
+    padding: 1rem 2rem; 
+    text-transform: uppercase; 
     color: blueviolet;
   }
 

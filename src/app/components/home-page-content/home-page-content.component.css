@@ -1,0 +1,14 @@
+.content-section {
+    padding: 50px 0;
+}
+.content-section h3 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+.content-section p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+.content-section img {
+    border-radius: 10px;
+}

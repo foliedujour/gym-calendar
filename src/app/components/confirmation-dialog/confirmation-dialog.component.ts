@@ -9,7 +9,7 @@ import { MatDialogRef, MatDialogActions, MatDialogContent } from '@angular/mater
   templateUrl: './confirmation-dialog.component.html',
   styleUrls: ['./confirmation-dialog.component.css']
 })
-export class ConfirmationDialogComponent {
+export class ConfirmationDialogComponent { // Confirmation dialog for user to confirm on unbook
   constructor(public dialogRef: MatDialogRef<ConfirmationDialogComponent>) {}
 
   onConfirm(): void {

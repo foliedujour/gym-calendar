@@ -33,33 +33,31 @@
 
   /* Style for the "Book Now" button */
 .book-now-button {
-  background-color: blueviolet; /* Bright, eye-catching color */
-  color: white; /* White text color for contrast */
-  border: none; /* Remove default border */
-  border-radius: 25px; /* Rounded corners */
-  padding: 10px 20px; /* Padding for a larger clickable area */
-  font-size: 16px; /* Larger font size */
-  font-weight: bold; /* Bold text */
-  cursor: pointer; /* Pointer cursor on hover */
-  transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+  background-color: blueviolet; 
+  color: white; 
+  border: none; 
+  border-radius: 25px; 
+  padding: 10px 20px; 
+  font-size: 16px; 
+  font-weight: bold; 
+  cursor: pointer;
+  transition: background-color 0.3s ease; 
 }
 
 .book-now-button:hover {
-  background-color: #e64a19; /* Darker color on hover */
+  background-color: #e64a19; 
 }
 
 .book-now-button:active {
-  background-color: #d84315; /* Even darker color on click */
+  background-color: #d84315; 
 }
 
 .book-now-button:focus {
-  outline: none; /* Remove default focus outline */
-  box-shadow: 0 0 0 3px rgba(255, 87, 34, 0.5); /* Custom focus outline */
+  outline: none; 
+  box-shadow: 0 0 0 3px rgba(255, 87, 34, 0.5); 
 }
 
-/* event-dialog.component.css */
 .warning-message {
   color: red;
   font-weight: bold;
 }
-  

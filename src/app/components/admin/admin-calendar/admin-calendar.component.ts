@@ -30,19 +30,16 @@ export class AdminCalendarComponent implements OnInit {
   }
 
   onEventClick(event: any): void {
-    console.log("hi");
     this.openEventDialog(event, true);
   }
 
   openEventDialog(event: any, isAdmin: boolean): void {
-    console.log('Opening dialog with event:', event); // For debugging
     const dialogRef = this.dialog.open(EventDialogComponent, {
       width: '400px',
       data: { event, isAdmin }
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('Dialog closed with result:', result); // For debugging
       if (result.action === 'delete') {
           this.deleteSession(result.event);
        }

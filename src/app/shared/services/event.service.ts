@@ -71,7 +71,8 @@ export class EventService {
     return this.http.delete<BookingResponse>(`${this.apiURL}/api/user/bookings`,  { headers: this.authService.getAuthHeaders(), body: bookingRequest }, );
   }
 
-  formatDateToISO(date) {
+ 
+  formatDateToISO(date) {  // Format date so it can be used by getCourseSessionsByWeek
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are 0-based, so add 1
     const day = String(date.getDate()).padStart(2, '0');

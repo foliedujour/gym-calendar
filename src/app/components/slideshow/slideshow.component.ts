@@ -1,5 +1,6 @@
-import { Component, OnInit, ViewChildren, QueryList, ElementRef } from '@angular/core';
+import { Component, } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 interface Slide {
   src: string;
@@ -12,43 +13,49 @@ interface Slide {
 @Component({
   selector: 'app-slideshow',
   standalone: true,
-  imports: [CommonModule,],
+  imports: [CommonModule],
   templateUrl: './slideshow.component.html',
   styleUrls: ['./slideshow.component.css']
 })
-export class SlideshowComponent implements OnInit {
+export class SlideshowComponent {
   slides: Slide[] = [
     {
       src: 'assets/image1.jpg',
       captionTitle: 'NEW WELLNET COMPETITION',
       captionHeading: 'BEST OF SANTORINI, ALL IN ONE SPOT!',
       captionText: 'Πάρτε μέρος στο νέο Wellnet διαγωνισμό μας με μεγάλο δώρο 3 μοναδικά ταξίδια στα Luxury Hotels \'CANAVES COLLECTION\', στη Σαντορίνη.',
-      buttonText: 'ΕΓΓΡΑΦΕΙΤΕ ΤΩΡΑ ΣΤΑ ΜΑΘΗΜΑΤΑ ΜΑΣ'
+      buttonText: 'BOOK NOW!'
     },
     {
       src: 'assets/image2.jpg',
       captionTitle: 'NEW WELLNET COMPETITION',
       captionHeading: 'BEST OF SANTORINI, ALL IN ONE SPOT!',
       captionText: 'Πάρτε μέρος στο νέο Wellnet διαγωνισμό μας με μεγάλο δώρο 3 μοναδικά ταξίδια στα Luxury Hotels \'CANAVES COLLECTION\', στη Σαντορίνη.',
-      buttonText: 'ΕΓΓΡΑΦΕΙΤΕ ΤΩΡΑ ΣΤΑ ΜΑΘΗΜΑΤΑ ΜΑΣ'
+      buttonText: 'BOOK NOW!'
     },
     {
       src: 'assets/image3.jpg',
       captionTitle: 'NEW WELLNET COMPETITION',
       captionHeading: 'BEST OF SANTORINI, ALL IN ONE SPOT!',
       captionText: 'Πάρτε μέρος στο νέο Wellnet διαγωνισμό μας με μεγάλο δώρο 3 μοναδικά ταξίδια στα Luxury Hotels \'CANAVES COLLECTION\', στη Σαντορίνη.',
-      buttonText: 'ΕΓΓΡΑΦΕΙΤΕ ΤΩΡΑ ΣΤΑ ΜΑΘΗΜΑΤΑ ΜΑΣ'
+      buttonText: 'BOOK NOW!'
+    },
+    {
+      src: 'assets/image6.jpg',
+      captionTitle: 'NEW WELLNET COMPETITION',
+      captionHeading: 'BEST OF SANTORINI, ALL IN ONE SPOT!',
+      captionText: 'Πάρτε μέρος στο νέο Wellnet διαγωνισμό μας με μεγάλο δώρο 3 μοναδικά ταξίδια στα Luxury Hotels \'CANAVES COLLECTION\', στη Σαντορίνη.',
+      buttonText: 'BOOK NOW!'
     }
   ];
 
   currentSlideIndex: number = 0;
   
-  constructor() {}
+  constructor(
+    private router: Router
+  ) {}
 
-  ngOnInit(): void {}
-
- 
-
+  
   prevSlide(): void {
     this.currentSlideIndex = (this.currentSlideIndex > 0) ? this.currentSlideIndex - 1 : this.slides.length - 1;
   }
@@ -57,6 +64,12 @@ export class SlideshowComponent implements OnInit {
     console.log(this.currentSlideIndex);
     this.currentSlideIndex = (this.currentSlideIndex < this.slides.length - 1) ? this.currentSlideIndex + 1 : 0;
   }
+
+  navigateToLogin(): void {
+    this.router.navigate(['login']).then(() => {
+        window.scrollTo(0, document.body.scrollHeight);
+    });
+}
 
 }
 

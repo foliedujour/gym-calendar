@@ -14,7 +14,7 @@ import { GoBackButtonComponent } from '../../go-back-button/go-back-button.compo
 })
 export class RegisterInstructorComponent {
  
-  instructor: Instructor = {
+  instructor: Instructor = { // data-binding for the form
     id: 0,
     firstname: '',
     lastname: '',

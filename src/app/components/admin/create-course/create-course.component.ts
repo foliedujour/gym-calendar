@@ -23,7 +23,7 @@ export class CreateCourseComponent implements OnInit {
     instructorIds: []
   };
   allInstructors: Instructor[] = [];
-  instructorSelections: number[] = [0]; // Initialize with one selection
+  instructorSelections: number[] = [0]; // Array of instructor selections for admin to select more than one instructor if needed
 
   constructor(
     private courseService: CourseService,
@@ -34,11 +34,10 @@ export class CreateCourseComponent implements OnInit {
     this.fetchInstructors();
   }
 
-  fetchInstructors(): void {
+  fetchInstructors(): void { // Fetch all instructors to populate the instructor selection dropdown
     this.instructorService.getInstructors().subscribe({
       next: instructors => {
         this.allInstructors = instructors;
-        console.log('Instructors fetched:', this.allInstructors);
       },
       error: err => {
         console.error('Error fetching instructors:', err);
@@ -63,7 +62,7 @@ export class CreateCourseComponent implements OnInit {
     console.log('Instructor selection removed:', this.instructorSelections);
   }
 
-  onInstructorChange(event: Event, index: number): void {
+  onInstructorChange(event: Event, index: number): void { // Event which takes the selected instructor id and updates the selection array
     const selectElement = event.target as HTMLSelectElement;
     const instructorId = Number(selectElement.value);  // Convert to number
     this.instructorSelections[index] = instructorId;
@@ -71,6 +70,7 @@ export class CreateCourseComponent implements OnInit {
   }
 
   hasDuplicateInstructors(): boolean {
+     // Checks if there are duplicates and disable submit button
     const uniqueSelections = new Set(this.instructorSelections.filter(id => id !== 0));
     return uniqueSelections.size !== this.instructorSelections.filter(id => id !== 0).length;
   }

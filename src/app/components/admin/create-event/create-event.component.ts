@@ -30,7 +30,7 @@ export class CreateCourseSessionComponent implements OnInit {
   roomAvailable : boolean = true;
   minDate: string;
 
-  courseSession = {
+  courseSession = { // data-binding from the input to the form
     courseName: '',
     instructor: '',
     date: '',
@@ -53,7 +53,7 @@ export class CreateCourseSessionComponent implements OnInit {
     this.fetchRooms();
   }
 
-  generateTimes(): void {
+  generateTimes(): void { // Generate valid times for admin to choose from
     this.times = [];
     for (let hour = 8; hour <= 21; hour++) { // Ensure the last start time is 21:00
       this.times.push(`${hour < 10 ? '0' : ''}${hour}:00`);
@@ -63,7 +63,7 @@ export class CreateCourseSessionComponent implements OnInit {
     }
   }
 
-  generateEndTimes(startTime: string): void {
+  generateEndTimes(startTime: string): void { // Generate valid end times based on the selected start time
     const [startHour, startMinute] = startTime.split(':').map(Number);
     this.endTimes = this.times.filter(time => {
       const [endHour, endMinute] = time.split(':').map(Number);
@@ -90,7 +90,7 @@ export class CreateCourseSessionComponent implements OnInit {
     this.minDate = `${year}-${month}-${day}`;
   }
 
-  onStartTimeChange(event: Event): void {
+  onStartTimeChange(event: Event): void { // Event that handles end times after start time input and assigns the selected start time to the course session
     const startTime = (event.target as HTMLInputElement).value;
     this.generateEndTimes(startTime);
     if (this.courseSession.endTime && this.endTimes.indexOf(this.courseSession.endTime) === -1) {
@@ -100,7 +100,7 @@ export class CreateCourseSessionComponent implements OnInit {
     this.checkIfReadyForAvailabilityCheck();
   }
 
-  onEndTimeChange(event: Event): void {
+  onEndTimeChange(event: Event): void { // Event that assigns the selected end time to the course session
     const endTime = (event.target as HTMLInputElement).value;
     this.courseSession.endTime = endTime;
     this.cdr.detectChanges();
@@ -150,7 +150,7 @@ export class CreateCourseSessionComponent implements OnInit {
       return;
     }
 
-    const newSession: CourseSession = {
+    const newSession: CourseSession = { // data-binding from the form to the back-end
       id: null,
       courseId: selectedCourse.id,
       instructorId: selectedInstructor.id,
@@ -197,7 +197,7 @@ export class CreateCourseSessionComponent implements OnInit {
 
   onCourseChange(): void {
     const selectedCourse = this.courses.find(course => course.title === this.courseSession.courseName);
-    if (selectedCourse) {
+    if (selectedCourse) { // fetch only instructors that teach the selected course
       this.courseService.getInstructorsForCourse(selectedCourse.id).subscribe({
         next: (instructors: Instructor[]) => {
           this.instructors = instructors;
@@ -212,13 +212,13 @@ export class CreateCourseSessionComponent implements OnInit {
     }
   }
 
-  checkIfReadyForAvailabilityCheck(): void {
+  checkIfReadyForAvailabilityCheck(): void { // Checks if all required fields are filled before checking availability
     if (this.courseSession.instructor && this.courseSession.startTime  && this.courseSession.endTime && this.courseSession.room) {
       this.checkAvailability();
     }
   }
 
-  checkAvailability(): void {
+  checkAvailability(): void { // Checks for availability of the selected instructor and room in conjuction with the selected timeslot
     const startDateTime = this.combineDateTime(this.date, this.courseSession.startTime);
     const endDateTime = this.combineDateTime(this.date, this.courseSession.endTime);
 
@@ -253,7 +253,7 @@ export class CreateCourseSessionComponent implements OnInit {
     }
   }
 
-  combineDateTime(date: string, time: string): string {
+  combineDateTime(date: string, time: string): string { // formats the date and time before senting them in the backend
     return `${date}T${time}:00`;
   }
 

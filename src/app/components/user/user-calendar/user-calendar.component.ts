@@ -44,7 +44,10 @@ export class UserCalendarComponent implements OnInit {
   }
 
   
-  loadEvents(): void {
+  loadEvents(): void { // get all course sessions for the current week
+    // then filter them based on if the user has booked
+    // a class based on booked status has been applied to the parent component
+    // that emits the sessions
     const userId = this.authService.getUserId();
     const startOfWeekISO = this.eventService.formatDateToISO(this.currentMonday);
     this.eventService.getCourseSessionsByWeek(startOfWeekISO).subscribe((events) => {
@@ -52,7 +55,7 @@ export class UserCalendarComponent implements OnInit {
         this.bookedSessionIds = bookedSessions.map((session) => session.id);
         this.sessions = events.map((event) => ({
           ...event,
-          isBooked: this.bookedSessionIds.includes(event.id),
+          isBooked: this.bookedSessionIds.includes(event.id), // Add isBooked property to each event, specifically for this component
         }));
         this.cdr.markForCheck();
       });
@@ -97,11 +100,11 @@ export class UserCalendarComponent implements OnInit {
       if (response.success) {
         console.log('Booking successful');
         console.log(response);
-        this.snackBar.open('Booking successful', 'Close', { duration: 3000 });
+        this.snackBar.open('Booking successful', 'Close', { duration: 3000 }); // Display success message to the user
         this.loadEvents();
       } else {
         console.error('Booking failed:', response.message);
-        this.snackBar.open('Booking failed: ' + response.message, 'Close', { duration: 3000 });
+        this.snackBar.open('Booking failed: ' + response.message, 'Close', { duration: 3000 }); // Display error message to the user
         console.log(response);
       }
     } catch (error) {
@@ -119,11 +122,10 @@ export class UserCalendarComponent implements OnInit {
     try {
       const response: BookingResponse = await lastValueFrom(this.eventService.unBookSession(bookingRequest));
       if (response.success) {
-        console.log('Unbooking successful');
-        console.log(response);
+        this.snackBar.open('Unbooking successful', 'Close', { duration: 3000 }); // Display success message to the user
         this.loadEvents();
       } else {
-        console.error('Unbooking failed:', response.message);
+        this.snackBar.open('Error occured', 'Close', { duration: 3000 }); // Display failure message to the user
         console.log(response);
       }
     } catch (error) {
@@ -131,7 +133,7 @@ export class UserCalendarComponent implements OnInit {
     }
   }
 
-  confirmUnbookSession(event: any): void {
+  confirmUnbookSession(event: any): void { // Confirm unbooking with a dialog
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
       width: '300px'
     });

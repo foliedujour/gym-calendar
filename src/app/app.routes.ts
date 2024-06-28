@@ -10,7 +10,6 @@ import { RegisterInstructorComponent } from './components/admin/register-instruc
 import { AdminCalendarComponent } from './components/admin/admin-calendar/admin-calendar.component';
 import { UserCalendarComponent } from './components/user/user-calendar/user-calendar.component';
 import { userAuthGuardGuard } from './guards/user.auth.guard';
-import { MyCalendarComponent } from './components/user/my-calendar/my-calendar.component';
 import { redirectIfLoggedInGuard } from './guards/redirect-if-logged-in.guard';
 import { HomePageContentComponent } from './components/home-page-content/home-page-content.component';
 import { UserDashboardComponent } from './components/user/user-dashboard/user-dashboard.component';
@@ -27,7 +26,6 @@ export const routes: Routes = [
     { path: 'admin/instructors/new', component: RegisterInstructorComponent, canActivate: [adminAuthGuard] },
     { path: 'admin/calendar', component: AdminCalendarComponent, canActivate: [adminAuthGuard] },
     { path: 'user/calendar', component: UserCalendarComponent, canActivate: [userAuthGuardGuard] },
-    { path: 'my-calendar', component: MyCalendarComponent, canActivate: [userAuthGuardGuard] },
 ];
 export const appRouterProviders = RouterModule.forRoot(routes);
 
